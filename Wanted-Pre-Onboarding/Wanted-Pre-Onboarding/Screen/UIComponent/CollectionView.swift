@@ -7,18 +7,14 @@
 
 import UIKit
 
+import SnapKit
+
 final class CollectionView: UIView {
     
     private enum Size {
-        static let collectionHorizontalSpacing: CGFloat = 24
-        static let collectionVerticalSpacing: CGFloat = 16
         static let cellWidth: CGFloat = UIScreen.main.bounds.width - 24 * 2
-        static let cellHeight: CGFloat = 32
-        static let collectionInsets = UIEdgeInsets(
-            top: collectionVerticalSpacing,
-            left: collectionHorizontalSpacing,
-            bottom: collectionVerticalSpacing,
-            right: collectionHorizontalSpacing)
+        static let cellHeight: CGFloat = 80
+        static let collectionInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 24)
     }
     
     // MARK: - property
@@ -65,7 +61,7 @@ extension CollectionView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
         return cell
     }
 }

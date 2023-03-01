@@ -7,18 +7,48 @@
 
 import UIKit
 
+import SnapKit
+
 final class ViewController: UIViewController {
+    
+    // MARK: - property
+    
+    private let collectionView = CollectionView()
+    private let refreshButton: UIButton = {
+       let button = UIButton()
+        button.backgroundColor = .systemBlue
+        button.setTitle("Load All Images", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 8
+        return button
+    }()
 
     // MARK: - life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configUI()
+        render()
     }
 
     // MARK: - func
     
     private func configUI() {
         view.backgroundColor = .white
+    }
+    
+    private func render() {
+        view.addSubview(collectionView)
+        collectionView.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
+            $0.height.equalTo(630)
+        }
+        
+        view.addSubview(refreshButton)
+        refreshButton.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(24)
+            $0.top.equalTo(collectionView.snp.bottom).offset(20)
+            $0.height.equalTo(48)
+        }
     }
 }
