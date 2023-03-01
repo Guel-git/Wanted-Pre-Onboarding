@@ -13,7 +13,7 @@ final class CollectionViewCell: UICollectionViewCell {
     
     // MARK: - property
     
-    private let imageView = UIImageView(image: UIImage(systemName: "photo"))
+    let imageView = UIImageView()
     private let progressView: UIProgressView = {
         let progressView = UIProgressView()
         progressView.backgroundColor = .systemGray5

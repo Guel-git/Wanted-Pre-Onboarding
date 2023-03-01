@@ -16,6 +16,7 @@ final class CollectionView: UIView {
         static let cellHeight: CGFloat = 80
         static let collectionInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 24)
     }
+    var imageList: [UIImage?] = [UIImage(systemName: "photo"), UIImage(systemName: "photo"), UIImage(systemName: "photo"), UIImage(systemName: "photo"), UIImage(systemName: "photo")]
     
     // MARK: - property
     
@@ -57,11 +58,14 @@ final class CollectionView: UIView {
 
 extension CollectionView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return imageList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
+        
+        cell.imageView.image = imageList[indexPath.item]
+        
         return cell
     }
 }
