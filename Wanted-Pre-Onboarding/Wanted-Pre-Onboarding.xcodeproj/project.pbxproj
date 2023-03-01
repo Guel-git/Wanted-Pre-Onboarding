@@ -15,6 +15,7 @@
 		52A53DB629AF9AEE00C4BB4C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52A53DB429AF9AEE00C4BB4C /* LaunchScreen.storyboard */; };
 		52A53DC129AF9DD400C4BB4C /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A53DC029AF9DD400C4BB4C /* CollectionViewCell.swift */; };
 		52A53DC329AF9E2000C4BB4C /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A53DC229AF9E2000C4BB4C /* CollectionView.swift */; };
+		52A53DC629AF9E7400C4BB4C /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 52A53DC529AF9E7400C4BB4C /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52A53DC629AF9E7400C4BB4C /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,6 +115,9 @@
 			dependencies = (
 			);
 			name = "Wanted-Pre-Onboarding";
+			packageProductDependencies = (
+				52A53DC529AF9E7400C4BB4C /* SnapKit */,
+			);
 			productName = "Wanted-Pre-Onboarding";
 			productReference = 52A53DA629AF9AED00C4BB4C /* Wanted-Pre-Onboarding.app */;
 			productType = "com.apple.product-type.application";
@@ -141,6 +146,9 @@
 				Base,
 			);
 			mainGroup = 52A53D9D29AF9AEC00C4BB4C;
+			packageReferences = (
+				52A53DC429AF9E7400C4BB4C /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 52A53DA729AF9AED00C4BB4C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -390,6 +398,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		52A53DC429AF9E7400C4BB4C /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		52A53DC529AF9E7400C4BB4C /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 52A53DC429AF9E7400C4BB4C /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 52A53D9E29AF9AEC00C4BB4C /* Project object */;
 }
