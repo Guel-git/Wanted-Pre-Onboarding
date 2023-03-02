@@ -29,7 +29,6 @@ final class ViewController: UIViewController {
         super.viewDidLoad()
         configUI()
         render()
-        loadImage()
         bindCellNumber()
     }
 
@@ -54,21 +53,35 @@ final class ViewController: UIViewController {
         }
     }
     
-    private func loadImage() {
-        URLSession.shared.dataTask(with: NSURL(string: "https://cdn.pixabay.com/photo/2014/04/14/20/11/pink-324175_1280.jpg")! as URL, completionHandler: { (data, response, error) -> Void in
+    private func loadImage(cellNum: Int) {
+        var imageURL: String = ""
+        switch cellNum {
+        case 0:
+            imageURL = "https://cdn.pixabay.com/photo/2014/04/14/20/11/pink-324175_1280.jpg"
+        case 1:
+            imageURL = "https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014_1280.jpg"
+        case 2:
+            imageURL = "https://cdn.pixabay.com/photo/2012/03/01/00/55/flowers-19830_1280.jpg"
+        case 3:
+            imageURL = "https://cdn.pixabay.com/photo/2013/08/20/15/47/poppies-174276_1280.jpg"
+        case 4:
+            imageURL = "https://cdn.pixabay.com/photo/2013/07/21/13/00/rose-165819_1280.jpg"
+        default:
+            return
+        }
+        URLSession.shared.dataTask(with: NSURL(string: imageURL)! as URL, completionHandler: { (data, response, error) -> Void in
             if error != nil {
-                print(error)
                 return
             }
             DispatchQueue.main.async(execute: { () -> Void in
-                self.collectionView.imageList[0] = UIImage(data: data!)
+                self.collectionView.imageList[cellNum] = UIImage(data: data!)
             })
         }).resume()
     }
     
     private func bindCellNumber() {
         collectionView.bindCellNumber = { [weak self] number in
-            print(number)
+            self?.loadImage(cellNum: number)
         }
     }
 }
