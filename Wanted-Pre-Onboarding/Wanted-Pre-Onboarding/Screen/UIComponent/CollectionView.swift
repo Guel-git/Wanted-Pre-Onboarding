@@ -21,6 +21,7 @@ final class CollectionView: UIView {
             collectionView.reloadData()
         }
     }
+    var bindCellNumber: ((Int) -> ())?
     
     // MARK: - property
     
@@ -70,6 +71,15 @@ extension CollectionView: UICollectionViewDataSource {
         
         cell.imageView.image = imageList[indexPath.item]
         
+        cell.button.tag = indexPath.item
+        cell.button.addTarget(self, action: #selector(didTappedLoadButton(sender: )), for: .touchUpInside)
+        
         return cell
+    }
+}
+
+extension CollectionView {
+    @objc func didTappedLoadButton(sender : UIButton) {
+        bindCellNumber?(sender.tag)
     }
 }

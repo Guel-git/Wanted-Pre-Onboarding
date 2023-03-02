@@ -30,6 +30,7 @@ final class ViewController: UIViewController {
         configUI()
         render()
         loadImage()
+        bindCellNumber()
     }
 
     // MARK: - func
@@ -63,5 +64,11 @@ final class ViewController: UIViewController {
                 self.collectionView.imageList[0] = UIImage(data: data!)
             })
         }).resume()
+    }
+    
+    private func bindCellNumber() {
+        collectionView.bindCellNumber = { [weak self] number in
+            print(number)
+        }
     }
 }
