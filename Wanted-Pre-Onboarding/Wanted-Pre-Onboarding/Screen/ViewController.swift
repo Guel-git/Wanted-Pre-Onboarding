@@ -76,6 +76,9 @@ final class ViewController: UIViewController {
             DispatchQueue.main.async(execute: { () -> Void in
                 self.collectionView.imageList[cellNum] = UIImage(data: data!)
             })
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
+                self.collectionView.imageList[cellNum] = UIImage(systemName: "photo")
+            }
         }).resume()
     }
     
