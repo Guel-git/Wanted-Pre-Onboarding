@@ -16,11 +16,12 @@ final class CollectionView: UIView {
         static let cellHeight: CGFloat = 80
         static let collectionInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 24)
     }
-    var imageList: [UIImage?] = [UIImage(systemName: "photo"), UIImage(systemName: "photo"), UIImage(systemName: "photo"), UIImage(systemName: "photo"), UIImage(systemName: "photo")] {
+    var imageList: [UIImage?] = Array(repeating: Literal.defaultImage, count: 5) {
         didSet {
             collectionView.reloadData()
         }
     }
+    var bindCellNumber: ((Int) -> ())?
     
     // MARK: - property
     
@@ -70,6 +71,15 @@ extension CollectionView: UICollectionViewDataSource {
         
         cell.imageView.image = imageList[indexPath.item]
         
+        cell.button.tag = indexPath.item
+        cell.button.addTarget(self, action: #selector(didTappedLoadButton(sender: )), for: .touchUpInside)
+        
         return cell
+    }
+}
+
+extension CollectionView {
+    @objc func didTappedLoadButton(sender : UIButton) {
+        bindCellNumber?(sender.tag)
     }
 }

@@ -22,7 +22,7 @@ final class CollectionViewCell: UICollectionViewCell {
         progressView.layer.cornerRadius = 2
         return progressView
     }()
-    private let button: UIButton = {
+    let button: UIButton = {
         let button = UIButton()
         button.backgroundColor = .systemBlue
         button.setTitle("Load", for: .normal)
