@@ -29,6 +29,7 @@ final class ViewController: UIViewController {
         super.viewDidLoad()
         configUI()
         render()
+        loadImage()
     }
 
     // MARK: - func
@@ -50,5 +51,17 @@ final class ViewController: UIViewController {
             $0.top.equalTo(collectionView.snp.bottom).offset(20)
             $0.height.equalTo(48)
         }
+    }
+    
+    private func loadImage() {
+        URLSession.shared.dataTask(with: NSURL(string: "https://cdn.pixabay.com/photo/2014/04/14/20/11/pink-324175_1280.jpg")! as URL, completionHandler: { (data, response, error) -> Void in
+            if error != nil {
+                print(error)
+                return
+            }
+            DispatchQueue.main.async(execute: { () -> Void in
+                self.collectionView.imageList[0] = UIImage(data: data!)
+            })
+        }).resume()
     }
 }
