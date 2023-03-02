@@ -9,6 +9,9 @@ import UIKit
 
 import SnapKit
 
+private let imageURLList = ["https://cdn.pixabay.com/photo/2014/04/14/20/11/pink-324175_1280.jpg", "https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014_1280.jpg", "https://cdn.pixabay.com/photo/2012/03/01/00/55/flowers-19830_1280.jpg", "https://cdn.pixabay.com/photo/2013/08/20/15/47/poppies-174276_1280.jpg", "https://cdn.pixabay.com/photo/2013/07/21/13/00/rose-165819_1280.jpg"]
+private var imageList: [UIImage] = []
+
 final class ViewController: UIViewController {
     
     // MARK: - property
@@ -30,6 +33,7 @@ final class ViewController: UIViewController {
         configUI()
         render()
         bindCellNumber()
+        setRefreshButton()
     }
 
     // MARK: - func
@@ -54,22 +58,7 @@ final class ViewController: UIViewController {
     }
     
     private func loadImage(cellNum: Int) {
-        var imageURL: String = ""
-        switch cellNum {
-        case 0:
-            imageURL = "https://cdn.pixabay.com/photo/2014/04/14/20/11/pink-324175_1280.jpg"
-        case 1:
-            imageURL = "https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014_1280.jpg"
-        case 2:
-            imageURL = "https://cdn.pixabay.com/photo/2012/03/01/00/55/flowers-19830_1280.jpg"
-        case 3:
-            imageURL = "https://cdn.pixabay.com/photo/2013/08/20/15/47/poppies-174276_1280.jpg"
-        case 4:
-            imageURL = "https://cdn.pixabay.com/photo/2013/07/21/13/00/rose-165819_1280.jpg"
-        default:
-            return
-        }
-        URLSession.shared.dataTask(with: NSURL(string: imageURL)! as URL, completionHandler: { (data, response, error) -> Void in
+        URLSession.shared.dataTask(with: NSURL(string: imageURLList[cellNum])! as URL, completionHandler: { (data, response, error) -> Void in
             if error != nil {
                 return
             }
@@ -85,6 +74,32 @@ final class ViewController: UIViewController {
     private func bindCellNumber() {
         collectionView.bindCellNumber = { [weak self] number in
             self?.loadImage(cellNum: number)
+        }
+    }
+    
+    private func setRefreshButton() {
+        let action = UIAction { [weak self] _ in
+            self?.loadAllImages()
+        }
+        refreshButton.addAction(action, for: .touchUpInside)
+    }
+    
+    private func loadAllImages() {
+        for url in imageURLList {
+            URLSession.shared.dataTask(with: NSURL(string: url)! as URL, completionHandler: { (data, response, error) -> Void in
+                if error != nil {
+                    return
+                }
+                DispatchQueue.main.async(execute: { () -> Void in
+                    imageList.append(UIImage(data: data!)!)
+                })
+            }).resume()
+        }
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3, execute: { () -> Void in
+                self.collectionView.imageList = imageList
+        })
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
+            self.collectionView.imageList = Array(repeating: UIImage(systemName: "photo"), count: 5)
         }
     }
 }
