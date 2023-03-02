@@ -16,7 +16,7 @@ final class CollectionView: UIView {
         static let cellHeight: CGFloat = 80
         static let collectionInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 24)
     }
-    var imageList: [UIImage?] = [UIImage(systemName: "photo"), UIImage(systemName: "photo"), UIImage(systemName: "photo"), UIImage(systemName: "photo"), UIImage(systemName: "photo")] {
+    var imageList: [UIImage?] = Array(repeating: Literal.defaultImage, count: 5) {
         didSet {
             collectionView.reloadData()
         }
